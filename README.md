@@ -26,7 +26,7 @@ Run the following command to fine-tune **SetLLM** on your dataset:
 python Stage_2.py --dataset {YourDataset} --LLM_type {YourBackbone}
 ```
 
-### 4. Apply DCPO Optimization
+### 4. Apply DCPO
 Run the **DCPO** process to further optimize the fine-tuned model:
 ```bash
 python Stage_3_fin.py --dataset {YourDataset} --LLM_type {YourBackbone}
