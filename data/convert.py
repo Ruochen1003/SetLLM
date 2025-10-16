@@ -22,7 +22,6 @@ random.seed(args.seed)
 np.random.seed(args.seed)
 
 store_path = os.path.join(args.datadir, f"{args.dataset}/")
-procedure_timer = utils.Timer("Convert")
 
 
 """Read data from file"""
@@ -47,7 +46,6 @@ df_overall_test = df_overall_test[df_overall_test['user'].isin(overall_test_user
 n_user_item = pickle.load(open(os.path.join(store_path, 'n_user_item.pkl'), 'rb'))
 user_num = n_user_item['user']
 item_num = n_user_item['item']
-procedure_timer.logging('Finish loading data.')
 print("Global user_num: {}  item_num: {}".format(user_num, item_num))
 
 
@@ -59,7 +57,6 @@ cold_val_user = np.array(list(set(df_cold_val['user'])), dtype=np.int32)
 cold_test_user = np.array(list(set(df_cold_test['user'])), dtype=np.int32)
 overall_val_user = np.array(list(overall_val_user_set), dtype=np.int32)
 overall_test_user = np.array(list(overall_test_user_set), dtype=np.int32)
-procedure_timer.logging('Finish getting testing users.')
 
 
 """Get testing items"""
@@ -70,7 +67,6 @@ cold_val_item = np.array(list(set(df_cold_val['item'])), dtype=np.int32)
 cold_test_item = np.array(list(set(df_cold_test['item'])), dtype=np.int32)
 overall_val_item = np.array(list(set(df_overall_val['item'])), dtype=np.int32)
 overall_test_item = np.array(list(set(df_overall_test['item'])), dtype=np.int32)
-procedure_timer.logging('Finish getting testing items.')
 
 
 """Generate users' neighboring items."""
@@ -82,12 +78,10 @@ cold_test_user_nb = utils.df_get_neighbors(df_cold_test, 'user', user_num)
 pos_user_nb = utils.df_get_neighbors(df_pos, 'user', user_num)
 overall_val_user_nb = utils.df_get_neighbors(df_overall_val, 'user', user_num)
 overall_test_user_nb = utils.df_get_neighbors(df_overall_test, 'user', user_num)
-procedure_timer.logging('Finish getting users\' neighbors.')
 
 
 """Generate items' neighboring users."""
 emb_item_nb = utils.df_get_neighbors(df_emb, 'item', item_num)
-procedure_timer.logging('Finish getting items\' neighbors.')
 
 
 """Statistics"""
@@ -97,7 +91,6 @@ warm_user = np.array(list(set(df_emb['user'].tolist())), dtype=np.int32)
 warm_item = np.array(list(set(df_emb['item'].tolist())), dtype=np.int32)
 cold_user = np.array(list(set(user_array.tolist()) - set(warm_user.tolist())), dtype=np.int32)
 cold_item = np.array(list(set(item_array.tolist()) - set(warm_item.tolist())), dtype=np.int32)
-procedure_timer.logging('Finish generating warm/cold item/user array.')
 print("[warm] user: {}  item: {}".format(len(warm_user), len(warm_item)))
 print("[cold] user: {}  item: {}".format(len(cold_user), len(cold_item)))
 
@@ -142,4 +135,3 @@ para_dict['emb_item_nb'] = emb_item_nb  # for item frequency
 
 dict_path = os.path.join(store_path, 'convert_dict.pkl')
 pickle.dump(para_dict, open(dict_path, 'wb'), protocol=4)
-procedure_timer.logging('Convert {} successfully, store the dict to {}'.format(args.dataset, dict_path))
