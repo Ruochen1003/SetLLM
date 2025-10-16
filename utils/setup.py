@@ -34,10 +34,10 @@ def resolve_llm_root(args):
     if llm_type == 'LLama2':
         return os.path.join(args.LLM_root, args.LLM_type)
     elif llm_type == 'Llama3-1B':
-        return '/home/Master/LiuRC/data/Llama3-1B'
+        return '/home/models/Llama-3.2-1B'
     elif llm_type == "Llama3-3B":
         return '/home/models/Llama-3.2-3B'
-    elif llm_type == "Llama2-7B":
+    elif llm_type == "Llama3-8B":
         return '/root/autodl-tmp/model'
     elif llm_type == "Llama3-13B":
         return '/home/models/Llama-2-13b-hf'
