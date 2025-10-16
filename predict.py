@@ -51,10 +51,10 @@ def main(args):
     if args.LLM_type =='LLama2':
         llm_root = os.path.join(args.LLM_root, args.LLM_type)
     elif args.LLM_type == 'Llama3-1B':
-        llm_root = '/home/Master/LiuRC/data/Llama3-1B'
+        llm_root = '/home/models/Llama3-1B'
     elif args.LLM_type == "Llama3-3B":
         llm_root = '/home/models/Llama-3.2-3B'
-    elif args.LLM_type == "Llama2-7B":
+    elif args.LLM_type == "Llama3-8B":
         llm_root = '/root/autodl-tmp/model'
     elif args.LLM_type == "Llama3-13B":
         llm_root = '/home/models/Llama-2-13b-hf'
